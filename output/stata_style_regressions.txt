@@ -1,0 +1,80 @@
+STATA-STYLE OUTPUT (replicated in Python/statsmodels)
+==============================================================================
+
+. * Model 1: Pre-YCC
+. newey CIP_Dev EBP SPFin delta_s_lag1 VIX, lag(4)
+
+Model 1 (Pre-YCC)
+Dependent variable: CIP_Dev
+Estimator: OLS with Newey-West HAC SEs (lags=4)
+Number of obs = 93
+R-squared     = 0.7753
+Adj R-squared = 0.7651
+Durbin-Watson = 0.697
+
+------------------------------------------------------------------------------
+Variable             Coef.     Std. Err.          t      P>|t|
+------------------------------------------------------------------------------
+const            -0.003752***      0.000778     -4.823     0.0000
+EBP              -0.000503***      0.000171     -2.937     0.0033
+SPFin             0.000001***      0.000000      3.345     0.0008
+delta_s_lag1     -0.002050         0.002922     -0.701     0.4830
+VIX              -0.000025 **      0.000012     -2.018     0.0436
+------------------------------------------------------------------------------
+Significance: * p<0.10, ** p<0.05, *** p<0.01
+
+
+. * Model 2: Post-YCC
+. newey CIP_Dev EBP SPFin delta_s_lag1 VIX, lag(4)
+
+Model 2 (Post-YCC)
+Dependent variable: CIP_Dev
+Estimator: OLS with Newey-West HAC SEs (lags=4)
+Number of obs = 91
+R-squared     = 0.3547
+Adj R-squared = 0.3247
+Durbin-Watson = 0.502
+
+------------------------------------------------------------------------------
+Variable             Coef.     Std. Err.          t      P>|t|
+------------------------------------------------------------------------------
+const            -0.043011 **      0.018171     -2.367     0.0179
+EBP               0.028968***      0.010954      2.645     0.0082
+SPFin             0.000009***      0.000003      2.913     0.0036
+delta_s_lag1     -0.037728         0.035985     -1.048     0.2944
+VIX              -0.001112***      0.000323     -3.444     0.0006
+------------------------------------------------------------------------------
+Significance: * p<0.10, ** p<0.05, *** p<0.01
+
+
+. * Model 3: Post-exit (Apr 2024 – Feb 2026)
+. newey CIP_Dev EBP SPFin delta_s_lag1 VIX, lag(4)
+
+Model 3 (Post-exit)
+Dependent variable: CIP_Dev
+Estimator: OLS with Newey-West HAC SEs (lags=4)
+Number of obs = 23
+R-squared     = 0.7943
+Adj R-squared = 0.7486
+Durbin-Watson = 0.733
+
+------------------------------------------------------------------------------
+Variable             Coef.     Std. Err.          t      P>|t|
+------------------------------------------------------------------------------
+const             0.087381***      0.013151      6.644     0.0000
+EBP               0.013212         0.010924      1.210     0.2265
+SPFin            -0.000010***      0.000001     -7.742     0.0000
+delta_s_lag1      0.006772         0.012502      0.542     0.5880
+VIX              -0.000654***      0.000244     -2.683     0.0073
+------------------------------------------------------------------------------
+Significance: * p<0.10, ** p<0.05, *** p<0.01
+
+
+. * Cross-regime Wald test (joint): H0: D_EBP = 0 and D_VIX = 0
+. test (D_EBP = 0) (D_VIX = 0)
+  F(2, 197) = 6.3749   Prob > F = 0.0021
+
+. * 3-regime pooled-interaction stability test
+. * H0: (D_exit_EBP - D_post_EBP) = 0 and (D_exit_VIX - D_post_VIX) = 0
+. test (D_exit_EBP = D_post_EBP) (D_exit_VIX = D_post_VIX)
+  F(2, 192) = 0.6895   Prob > F = 0.5031

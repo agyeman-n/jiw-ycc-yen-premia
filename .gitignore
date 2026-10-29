@@ -1,0 +1,4 @@
+data/*
+!data/.gitkeep
+output/analysis_writeup.md
+__pycache__/
